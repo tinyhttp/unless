@@ -1,6 +1,6 @@
 <div align="center">
 
-# repo-template
+# @tinyhttp/unless
 
 [![npm][npm-img]][npm-url] [![GitHub Workflow Status][gh-actions-img]][github-actions] [![Coverage][cov-img]][cov-url]
 
