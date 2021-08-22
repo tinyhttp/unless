@@ -1,5 +1,4 @@
 import ts from '@rollup/plugin-typescript'
-import { dependencies } from './package.json'
 
 export default {
   input: 'src/index.ts',
@@ -9,6 +8,5 @@ export default {
       format: 'esm'
     }
   ],
-  plugins: [ts()],
-  external: [...Object.keys(dependencies)]
+  plugins: [ts()]
 }
