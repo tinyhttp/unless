@@ -1,4 +1,4 @@
-import type { NextFunction, Middleware } from '@tinyhttp/app'
+import type { NextFunction, Middleware } from '@tinyhttp/router'
 import type { IncomingMessage, ServerResponse } from 'node:http'
 
 /**

@@ -55,5 +55,8 @@
     "format": "prettier --check \"./**/*.{ts,md}\"",
     "format:fix": "prettier --write \"./**/*.{ts,md}\"",
     "prepare": "husky install"
+  },
+  "dependencies": {
+    "@tinyhttp/router": "*"
   }
 }
