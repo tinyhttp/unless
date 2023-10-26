@@ -50,7 +50,7 @@
     "build": "tsc",
     "test": "tsx tests/index.test.ts",
     "test:coverage": "c8 tsx --test tests/index.test.ts",
-    "test:report": "c8 report --reporter=text-lcov > coverage.lcov",
+    "test:report": "c8 report --reporter=text-lcov > lcov.info",
     "lint": "eslint . --ext=ts",
     "format": "prettier --check \"./**/*.{ts,md}\"",
     "format:fix": "prettier --write \"./**/*.{ts,md}\"",
