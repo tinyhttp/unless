@@ -1,36 +1,28 @@
-import { suite } from 'uvu'
-import * as assert from 'uvu/assert'
-import type { Request, Response } from '@tinyhttp/app'
-import { unless, UnlessMiddlewareOptions, CustomUnless } from '../src/index'
+import { describe, it } from 'node:test'
+import { unless, UnlessMiddlewareOptions, CustomUnless } from '../src/index.js'
 
-function describe(name: string, fn: (...args: any[]) => void) {
-  const s = suite(name)
-  fn(s)
-  s.run()
-}
-
-import { createServer } from 'http'
+import { IncomingMessage, Server, ServerResponse, createServer } from 'node:http'
 import { makeFetch } from 'supertest-fetch'
 
-function exampleMiddleware(_: Request, res: Response): void {
+function exampleMiddleware(_: IncomingMessage, res: ServerResponse): void {
   res.setHeader('MW', 1)
 }
 
 function InitAppAndTestUnless(options: UnlessMiddlewareOptions | CustomUnless) {
-  const app = createServer((req, res) => {
-    unless({ handler: exampleMiddleware, type: 'mw' }, options)(req as Request, res as Response, () => {
+  const app = createServer((req: IncomingMessage, res: ServerResponse<IncomingMessage>) => {
+    unless({ handler: exampleMiddleware, type: 'mw' }, options)(req, res, () => {
       return
     })
     res.statusCode = 200
     res.end()
   })
 
-  const fetch = makeFetch(app)
+  const fetch = makeFetch(app as unknown as Server)
 
   return fetch
 }
 
-describe('Unless Middleware path parameter test', (it) => {
+describe('Unless Middleware path parameter test', () => {
   it("should execute if path string doesn't match", async () => {
     const fetch = InitAppAndTestUnless({ path: '/test' })
 
@@ -69,7 +61,7 @@ describe('Unless Middleware path parameter test', (it) => {
   })
 })
 
-describe('Unless Middleware ext parameter test', (it) => {
+describe('Unless Middleware ext parameter test', () => {
   it("should execute if ext doesn't match", async () => {
     const fetch = InitAppAndTestUnless({ ext: ['/users/123', '/users'] })
 
@@ -83,7 +75,7 @@ describe('Unless Middleware ext parameter test', (it) => {
   })
 })
 
-describe('Unless Middleware method parameter test', (it) => {
+describe('Unless Middleware method parameter test', () => {
   it("should execute if method string doesn't match", async () => {
     const fetch = InitAppAndTestUnless({ method: ['POST', 'PUT'] })
     await fetch('/').expectStatus(200).expectHeader('MW', 1)
@@ -96,7 +88,7 @@ describe('Unless Middleware method parameter test', (it) => {
   })
 })
 
-describe('Unless Middleware custom parameter test', (it) => {
+describe('Unless Middleware custom parameter test', () => {
   it('should execute if function returns false', async () => {
     const fetch = InitAppAndTestUnless(() => false)
 

@@ -1,4 +1,5 @@
-import type { Request, Response, NextFunction, Middleware } from '@tinyhttp/app'
+import type { NextFunction, Middleware } from '@tinyhttp/app'
+import type { IncomingMessage, ServerResponse } from 'node:http'
 
 /**
  * Middleware options
@@ -29,13 +30,12 @@ interface PathObject {
 /**
  * Custom function for `@tinyhttp/unless`
  */
-export type CustomUnless = (req: Request) => boolean
+export type CustomUnless = (req: IncomingMessage) => boolean
 
 // Convert single element to array of one element
-function toArray(val: any | any[]): any[] {
-  if (!Array.isArray(val) && val !== undefined) return [val]
-
-  return val
+function toArray<T, R = T[]>(val: T | T[]): R {
+  if (!Array.isArray(val) && val !== undefined) return [val] as R
+  return val as R
 }
 
 /**
@@ -68,7 +68,7 @@ function pathCheck(path: (string | RegExp | PathObject)[], url: string, method: 
 export function unless(
   mw: Middleware,
   options: UnlessMiddlewareOptions | CustomUnless
-): (req: Request, res: Response, next: NextFunction) => any {
+): (req: IncomingMessage, res: ServerResponse, next: NextFunction) => void {
   let opts: UnlessMiddlewareOptions // options
   let custom: CustomUnless // function
 
@@ -76,14 +76,14 @@ export function unless(
   else if (typeof options === 'function') custom = options as CustomUnless
 
   // Returned middleware with configuration
-  return function result(req: Request, res: Response, next: NextFunction): any {
+  return function result(req, res, next) {
     if (custom == undefined && (Object.keys(opts).length === 0 || opts == undefined)) next()
     if (custom == undefined) {
       const method: string[] = toArray(opts.method) // methods
-      const path: string[] | RegExp[] = toArray(opts.path) // full path
+      const path: string[] | RegExp[] = toArray<(typeof opts)['path'], string[] | RegExp[]>(opts.path) // full path
       const ext: string[] = toArray(opts.ext) // last part of the endpoint
 
-      const url: string[] = req.url.split('/') // splited endpoint array
+      const url: string[] = req.url!.split('/') // splited endpoint array
 
       let skip = false // determine if should skip middleware
 

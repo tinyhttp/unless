@@ -1,18 +1,39 @@
 {
   "name": "@tinyhttp/unless",
   "version": "2.0.0",
-  "type": "module",
-  "description": "Unless middleware for tinyhttp",
-  "homepage": "https://github.com/tinyhttp/unless#readme",
+  "author": "v1rtl",
   "repository": {
     "type": "git",
     "url": "https://github.com/tinyhttp/unless.git"
   },
+  "module": "./dist/index.js",
+  "devDependencies": {
+    "@commitlint/cli": "^18.2.0",
+    "@commitlint/config-conventional": "^18.1.0",
+    "@tinyhttp/app": "^2.2.0",
+    "@types/node": "^20.8.9",
+    "@typescript-eslint/eslint-plugin": "^6.9.0",
+    "@typescript-eslint/parser": "^6.9.0",
+    "bun-types": "^1.0.7",
+    "c8": "^8.0.1",
+    "eslint": "^8.52.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "husky": "^8.0.3",
+    "prettier": "^3.0.3",
+    "supertest-fetch": "^1.5.0",
+    "tsx": "^3.14.0",
+    "typescript": "^5.2.2"
+  },
+  "exports": "./dist/index.js",
+  "description": "Unless middleware for tinyhttp",
   "engines": {
     "node": ">=12.4 || 14.x || >=16"
   },
-  "types": "./dist/index.d.ts",
-  "exports": "./dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "homepage": "https://github.com/tinyhttp/unless#readme",
   "keywords": [
     "tinyhttp",
     "node.js",
@@ -22,40 +43,17 @@
     "unless",
     "middleware"
   ],
-  "author": "v1rtl",
   "license": "MIT",
-  "files": [
-    "dist"
-  ],
+  "type": "module",
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "rollup -c",
-    "test": "node --experimental-loader esbuild-node-loader node_modules/uvu/bin.js tests",
-    "test:coverage": "c8 --include=src pnpm test",
+    "build": "tsc",
+    "test": "tsx tests/index.test.ts",
+    "test:coverage": "c8 tsx --test tests/index.test.ts",
     "test:report": "c8 report --reporter=text-lcov > coverage.lcov",
     "lint": "eslint . --ext=ts",
     "format": "prettier --check \"./**/*.{ts,md}\"",
     "format:fix": "prettier --write \"./**/*.{ts,md}\"",
     "prepare": "husky install"
-  },
-  "devDependencies": {
-    "@commitlint/cli": "13.1.0",
-    "@commitlint/config-conventional": "13.1.0",
-    "@rollup/plugin-typescript": "^8.2.5",
-    "@tinyhttp/app": "2.0.3",
-    "@types/node": "^16.9.1",
-    "@typescript-eslint/eslint-plugin": "^4.31.1",
-    "@typescript-eslint/parser": "^4.31.1",
-    "c8": "^7.9.0",
-    "esbuild-node-loader": "^0.3.1",
-    "eslint": "^7.32.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "expect": "^27.2.0",
-    "husky": "^7.0.2",
-    "prettier": "^2.4.0",
-    "rollup": "^2.56.3",
-    "supertest-fetch": "^1.4.3",
-    "typescript": "^4.4.3",
-    "uvu": "^0.5.1"
   }
 }

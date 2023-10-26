@@ -1,14 +1,14 @@
 {
   "compilerOptions": {
-    "rootDir": "src",
-    "outDir": "dist",
-    "declaration": true,
-    "declarationDir": "dist",
-    "module": "ESNext",
+    "module": "NodeNext",
     "target": "ES2019",
-    "preserveSymlinks": true,
-    "allowSyntheticDefaultImports": true,
-    "moduleResolution": "Node"
+    "moduleResolution": "NodeNext",
+    "moduleDetection": "force",
+    "strict": false,
+    "downlevelIteration": true,
+    "skipLibCheck": true,
+    "outDir": "dist",
+    "declaration": true
   },
-  "include": ["./src/*.ts"]
+  "include": ["src"]
 }
