@@ -9,10 +9,14 @@ function exampleMiddleware(_: IncomingMessage, res: ServerResponse): void {
 }
 
 function InitAppAndTestUnless(options: UnlessMiddlewareOptions | CustomUnless) {
-  const app = createServer((req: IncomingMessage, res: ServerResponse<IncomingMessage>) => {
-    unless({ handler: exampleMiddleware, type: 'mw' }, options)(req, res, () => {
-      return
-    })
+  const app = createServer((req, res) => {
+    unless<IncomingMessage, ServerResponse<IncomingMessage>>({ handler: exampleMiddleware, type: 'mw' }, options)(
+      req,
+      res,
+      () => {
+        return
+      }
+    )
     res.statusCode = 200
     res.end()
   })
