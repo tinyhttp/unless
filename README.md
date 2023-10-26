@@ -45,7 +45,7 @@ app
 
 [npm-url]: https://npmjs.com/package/@tinyhttp/unless
 [github-actions]: https://github.com/tinyhttp/unless/actions
-[gh-actions-img]: https://img.shields.io/github/workflow/status/tinyhttp/unless/CI?style=for-the-badge&logo=github&label=&color=hotpink
+[gh-actions-img]: https://img.shields.io/github/actions/workflow/status/tinyhttp/unless/ci.yml?branch=master&style=for-the-badge&logo=github&label=&color=hotpink
 [cov-img]: https://img.shields.io/coveralls/github/tinyhttp/unless?style=for-the-badge&color=hotpink&
 [cov-url]: https://coveralls.io/github/tinyhttp/unless
 [npm-img]: https://img.shields.io/npm/dt/@tinyhttp/unless?style=for-the-badge&color=hotpink
