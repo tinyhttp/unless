@@ -13,7 +13,7 @@
   "exports": "./dist/index.js",
   "description": "Unless middleware for tinyhttp",
   "engines": {
-    "node": ">=12.20 || >=14.18 || >=16"
+    "node": ">=14.18 || >=16.20"
   },
   "files": [
     "dist"
